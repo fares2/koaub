@@ -16,12 +16,14 @@ module.exports = {
                 countDown: 10,
                 role: 0,
                 description: {
+                        ar: "حمل الفيديوهات من اليوتيوب (بالاسم أو الرابط) بكل حب ودلع جزائري ✨🩵",
                         bn: "ইউটিউব থেকে ভিডিও ডাউনলোড করুন (নাম বা লিঙ্ক দিয়ে)",
                         en: "Download video from YouTube (by name or link)",
                         vi: "Tải video từ YouTube (theo tên hoặc liên kết)"
                 },
                 category: "media",
                 guide: {
+                        ar: '   {pn} <الاسم أو الرابط>: عطيني اسم الفيديو ولا الرابط باش نحمله يا عيوني 🥺🍓',
                         bn: '   {pn} <নাম বা লিঙ্ক>: ভিডিও ডাউনলোড করতে নাম বা লিঙ্ক দিন',
                         en: '   {pn} <name or link>: Provide video name or link',
                         vi: '   {pn} <tên hoặc liên kết>: Cung cấp tên hoặc liên kết video'
@@ -29,6 +31,12 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noInput: "× يا عمري، عطيني اسم الفيديو ولا الرابط باش نحمله! 📺🥺",
+                        noResult: "× عذراً يا قلبي، ما لقيت حتى نتيجة.",
+                        success: "✅ هاو ليك الفيديو تاعك يا عيوني\n\n• 𝐓𝐢𝐭𝐥𝐞: %1",
+                        error: "× صرا مشكل يا قلبي: %1. عيط لـ MahMUD يعاونك."
+                },
                 bn: {
                         noInput: "× বেবি, ভিডিওর নাম বা লিঙ্ক তো দাও! 📺",
                         noResult: "× কোনো রেজাল্ট পাওয়া যায়নি।",
