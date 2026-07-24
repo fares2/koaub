@@ -14,12 +14,14 @@ module.exports = {
                 countDown: 5,
                 role: 0,
                 description: {
+                        ar: "احصل على معلومات تفصيلية عن أي أنمي بكل حب ورومانسية ✨🩵",
                         bn: "যেকোনো এনিমে সম্পর্কে বিস্তারিত তথ্য জানুন",
                         en: "Get detailed information about any anime",
                         vi: "Lấy thông tin chi tiết về bất kỳ bộ anime nào"
                 },
                 category: "anime",
                 guide: {
+                        ar: '   {pn} <اسم الأنمي>: اكتب اسم الأنمي للحصول على التفاصيل يا عيوني 🥺🍓',
                         bn: '   {pn} <এনিমে নাম>: বিস্তারিত জানতে নাম লিখুন',
                         en: '   {pn} <anime name>: Provide the anime name to get details',
                         vi: '   {pn} <tên anime>: Cung cấp tên anime để lấy chi tiết'
@@ -27,6 +29,11 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noInput: "⚠️ يا عمري، يرجى إدخال اسم الأنمي لعيونك! 🥺🍓",
+                        notFound: "❌ عذراً يا روحي، لم يتم العثور على معلومات هذا الأنمي. 🥺💔",
+                        error: "× يا حياتي، حدث خطأ: %1. تواصل مع MahMUD للمساعدة 🥺💔"
+                },
                 bn: {
                         noInput: "⚠️ বেবি, একটি এনিমে এর নাম তো দাও!",
                         notFound: "❌ দুঃখিত বেবি, এই এনিমে তথ্য খুঁজে পাওয়া যায়নি।",
