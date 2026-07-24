@@ -9,11 +9,16 @@ module.exports = {
 		countDown: 5,
 		role: 1,
 		description: {
+			ar: "حظر عضو من القروب بحب ودلع ✨🩵",
 			vi: "Cấm thành viên khỏi box chat",
 			en: "Ban user from box chat"
 		},
 		category: "box chat",
 		guide: {
+			ar: '   {pn} [@منشن|uid|رابط|رد]: لحظر العضو من القروب يا عمري 🥺🍓'
+				+ '\n   {pn} check: لفحص الأعضاء المحظورين وطردهم يا عيوني ✨'
+				+ '\n   {pn} unban [@منشن|uid|رابط|رد]: لرفع الحظر عن العضو 💕'
+				+ '\n   {pn} list: لعرض قائمة المحظورين بكل حب 🩵',
 			vi: "   {pn} [@tag|uid|link fb|reply] [<lý do cấm>|để trống nếu không có lý do]: Cấm thành viên khỏi box chat"
 				+ "\n   {pn} check: Kiểm tra thành viên bị cấm và kick thành viên đó ra khỏi box chat"
 				+ "\n   {pn} unban [@tag|uid|link fb|reply]: Bỏ cấm thành viên khỏi box chat"
@@ -26,6 +31,24 @@ module.exports = {
 	},
 
 	langs: {
+		ar: {
+			notFoundTarget: "⚠️ | يا روحي، منشن الشخص اللي حاب تحظرو، حط الـ uid تاعو، الرابط، ولا رد على رسالته 🥺💔",
+			notFoundTargetUnban: "⚠️ | يا عمري، منشن الشخص، حط الـ uid ولا رد على رسالته باش نحي عليه الحظر 🥺🍓",
+			userNotBanned: "⚠️ | يا حياتي، العضو اللي عنده الـ id %1 راهو ماشي محظور في هذا القروب 🩵",
+			unbannedSuccess: "✅ | تم رفع الحظر عن %1 بنجاح، مرحبا بيه مرة أخرى يا عيوني ✨",
+			cantSelfBan: "⚠️ | يا قلبي، ما تقدرش تحظر روحك! راك عزيز علينا بزاف 🥺🩵",
+			cantBanAdmin: "❌ | يا روحي، ما يقدرش البوت يحظر الأدمين! هذا خط أحمر 🥺🔥",
+			existedBan: "❌ | يا عمري، هذا الشخص محظور من قبل أصلاً! 🥺",
+			noReason: "ما كاش سبب مدكور يا روحي",
+			bannedSuccess: "✅ | تم حظر %1 من القروب بنجاح يا عيوني 🥺🩵",
+			needAdmin: "⚠️ | يا عمري، البوت يحتاج صلاحيات أدمن باش يقدر يطرد العضو المحظور ✨",
+			noName: "مستخدم فيسبوك يا روحي",
+			noData: "📑 | ما كاش أعضاء محظورين في هذا القروب، الجو نقي وصافي يا عيوني 🩵",
+			listBanned: "📑 | قائمة الأعضاء المحظورين في هذا القروب (صفحة %1/%2) يا عمري ✨",
+			content: "%1/ %2 (%3)\nالسبب: %4\nوقت الحظر: %5\n\n",
+			needAdminToKick: "⚠️ | يا روحي، العضو %1 (%2) محظور، بصح البوت ماشي أدمن باش يطرد. عاونا وعطيه صلاحيات أدمن 🥺💔",
+			bannedKick: "⚠️ | يا عمري، %1 حاول يدخل وهو محظور من قبل!\nUID: %2\nالسبب: %3\nوقت الحظر: %4\n\nالبوت طرده اوتوماتيكياً لعيونك 🥺🩵✨"
+		},
 		vi: {
 			notFoundTarget: "⚠️ | Vui lòng tag người cần cấm hoặc nhập uid hoặc link fb hoặc phản hồi tin nhắn của người cần cấm",
 			notFoundTargetUnban: "⚠️ | Vui lòng tag người cần bỏ cấm hoặc nhập uid hoặc link fb hoặc phản hồi tin nhắn của người cần bỏ cấm",
@@ -205,7 +228,7 @@ module.exports = {
 										if (event.logMessageType === "log:thread-admins" && event.logMessageData.ADMIN_EVENT == "add_admin") {
 											const { TARGET_ID } = event.logMessageData;
 											if (TARGET_ID == api.getCurrentUserID()) {
-												api.removeUserFromGroup(userFbId, event.threadID, () => global.GoatBot.onEvent = global.GoatBot.onEvent.filter(item => item.messageID != info.messageID));
+												api.removeUserFromGroup(userFbId, threadID, () => global.GoatBot.onEvent = global.GoatBot.onEvent.filter(item => item.messageID != info.messageID));
 											}
 										}
 									}
