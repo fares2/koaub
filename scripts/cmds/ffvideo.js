@@ -10,18 +10,20 @@ const mahmud = async () => {
 module.exports = {
         config: {
                 name: "ffvideo",
-                aliases: ["ffvid", "freefirevideo", "ফ্রিফায়ার"],
+                aliases: ["ffvid", "freefirevideo", "فریفاير"],
                 version: "1.7",
                 author: "MahMUD",
                 countDown: 10,
                 role: 0,
                 description: {
+                        ar: "احصل على فيديو فري فاير عشوائي بكل حب ودلع جزائري ✨🩵",
                         bn: "র‍্যান্ডম ফ্রি ফায়ার ভিডিও স্ট্যাটাস পান",
                         en: "Get a random Free Fire video status",
                         vi: "Lấy video trạng thái Free Fire ngẫu nhiên"
                 },
                 category: "media",
                 guide: {
+                        ar: '   {pn}: استعمل الأمر باش تحجب فيديو فري فاير عشوائي يا عمري 🥺🍓',
                         bn: '   {pn}: র‍্যান্ডম ফ্রি ফায়ার ভিডিও দেখতে ব্যবহার করুন',
                         en: '   {pn}: Use to get a random Free Fire video',
                         vi: '   {pn}: Sử dụng để lấy video Free Fire ngẫu nhiên'
@@ -29,6 +31,12 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        wait: "🐤 | يا عمري، راني نحوس لك على فيديو فري فاير... اصبر شوية برك <😘",
+                        noResult: "× ما لقيت حتى فيديو يا قلبي!",
+                        success: "✨ | هاو ليك فيديو فري فاير تاعك يا عيوني <😘",
+                        error: "× صرا مشكل يا قلبي: %1. عيط لـ MahMUD يعاونك."
+                },
                 bn: {
                         wait: "🐤 | বেবি, তোমার জন্য ফ্রি ফায়ার ভিডিও খুঁজছি... <😘",
                         noResult: "× কোনো ভিডিও খুঁজে পাওয়া যায়নি!",
