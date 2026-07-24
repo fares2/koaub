@@ -14,12 +14,14 @@ module.exports = {
                 countDown: 5,
                 role: 0,
                 description: {
+                        ar: "دردش مع نموذج GPT-4 الذكي بكل حب ودلع جزائري ✨🩵",
                         bn: "জিপিটি-৪ এআই এর সাথে চ্যাট করুন",
                         en: "Chat with GPT-4 AI",
                         vi: "Trò chuyện with GPT-4 AI"
                 },
                 category: "ai",
                 guide: {
+                        ar: '   {pn} <سؤال>: اكتب سؤالك هنا يا عمري\n   تقدر تكمل الدردشة بالريبلاي (Reply) 🥺🍓',
                         bn: '   {pn} <প্রশ্ন>: আপনার প্রশ্নটি লিখুন',
                         en: '   {pn} <question>: Type your question',
                         vi: '   {pn} <câu hỏi>: Nhập câu hỏi của bạn'
@@ -27,6 +29,10 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noInput: "× يا روحي، اكتب سؤالك أو الحاجة لي راك حاب تسقسي عليها! 🥺",
+                        error: "× صرا مشكل يا قلبي: %1. عيط لـ MahMUD يعاونك.\n•WhatsApp: 01836298139"
+                },
                 bn: {
                         noInput: "× বেবি, কিছু তো জিজ্ঞাসা করো!",
                         error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact MahMUD|\n•WhatsApp: 01836298139"
