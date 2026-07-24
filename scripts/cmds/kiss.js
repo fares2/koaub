@@ -16,12 +16,14 @@ module.exports = {
                 countDown: 5,
                 role: 0,
                 description: {
+                        ar: "أنشئ صورة قبلة رومانسية من خلال الإشارة إلى شخص ما بكل حب ورومانسية ✨🩵",
                         bn: "কাউকে মেনশন দিয়ে একটি রোমান্টিক কিস ইমেজ তৈরি করুন",
                         en: "Generate a romantic kiss image by mentioning someone",
                         vi: "Tạo hình ảnh hôn lãng mạn bằng cách gắn thẻ ai đó"
                 },
                 category: "love",
                 guide: {
+                        ar: '   {pn} <@منشن>: قم بالإشارة إلى شخص لتبادله القبلة يا عيوني 🥺🍓',
                         bn: '   {pn} <@tag>: কাউকে কিস করতে ট্যাগ করুন',
                         en: '   {pn} <@tag>: Tag someone to kiss',
                         vi: '   {pn} <@tag>: Gắn thẻ ai đó để hôn'
@@ -29,6 +31,12 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noTarget: "• يا عمري، منشن شخص واحد على الأقل باش تعطيه بوسة لعيونك 🥺🍓",
+                        wait: "جاري تصميم صورة القبلة الرومانسية يا روحي... انتظر قليلاً 🥺✨",
+                        success: "تفضل يا عيوني، هاذي هي صورة القبلة تاعكم مع بعض 💕🩵",
+                        error: "× يا حياتي، صرا مشكل: %1. تواصل مع MahMUD يعاونك 🥺💔"
+                },
                 bn: {
                         noTarget: "× বেবি, কিস করার জন্য কাউকে তো মেনশন দাও! 💋",
                         wait: "তোমার কিস ইমেজটি তৈরি করছি... একটু অপেক্ষা করো বেবি! <😘",
@@ -65,7 +73,7 @@ module.exports = {
                 const imgPath = path.join(cacheDir, `kiss_${senderID}_${targetID}.png`);
 
                 try {
-                        api.setMessageReaction("😘", event.messageID, () => {}, true);
+                        api.setMessageReaction("💋", event.messageID, () => {}, true);
                         const waitMsg = await message.reply(getLang("wait"));
 
                         const base = await mahmud();
