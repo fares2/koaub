@@ -26,6 +26,15 @@ module.exports = {
 			leaveType1: "left",
 			leaveType2: "was kicked from",
 			defaultLeaveMessage: "{userName} {type} the group"
+		},
+		ar: {
+			session1: "صباح النور والسرور 🌸",
+			session2: "وقت الظهيرة ☀️",
+			session3: "العشية 🌇",
+			session4: "الليل 🌙",
+			leaveType1: "خرج وحدو 🚶‍♂️",
+			leaveType2: "علاش خرجتو رجعو 🥺",
+			defaultLeaveMessage: "🥺 يا قلبي، خونا {userName} {type}... حرام عليكم علاش خرجتو رجعو 😭💔"
 		}
 	},
 
@@ -43,13 +52,6 @@ module.exports = {
 
 				const threadName = threadData.threadName;
 				const userName = await usersData.getName(leftParticipantFbId);
-
-				// {userName}   : name of the user who left the group
-				// {type}       : type of the message (leave)
-				// {boxName}    : name of the box
-				// {threadName} : name of the box
-				// {time}       : time
-				// {session}    : session
 
 				let { leaveMessage = getLang("defaultLeaveMessage") } = threadData.data;
 				const form = {
