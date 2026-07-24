@@ -15,11 +15,13 @@ module.exports = {
                 countDown: 10,
                 role: 0,
                 description: {
+                        ar: "تحميل الفيديوهات من أي منصة اجتماعية بكل حب ورومانسية ✨🩵",
                         bn: "যেকোনো সোশ্যাল মিডিয়া ভিডিও ডাউনলোড করুন",
                         en: "Download videos from any social media"
                 },
                 category: "media",
                 guide: {
+                        ar: '   {pn} <الرابط>: أرسل رابط الفيديو لعيونك 🥺🍓\n   أو قم بالرد على رسالة تحتوي على الرابط باستخدام {pn}\n\nالمنصات المدعومة:\n• TikTok\n• YouTube / Shorts\n• Facebook / FB Watch\n• Instagram / Reels\n• Twitter (X)\n• Threads\n• Snapchat\n• Pinterest\n• Spotify\n• SoundCloud\n• Reddit\n• LinkedIn\n• CapCut\n• Dailymotion\n• Kwai / Kuaishou\n• Douyin\n• Bluesky\n• Tumblr',
                         bn: '   {pn} <লিংক>: ভিডিওর লিংক দিন'
                                 + '\n   অথবা ভিডিও লিংকে রিপ্লাই দিয়ে {pn} লিখুন'
                                 + '\n\nSupported Platforms:\n• TikTok\n• YouTube / Shorts\n• Facebook / FB Watch\n• Instagram / Reels\n• Twitter (X)\n• Threads\n• Snapchat\n• Pinterest\n• Spotify\n• SoundCloud\n• Reddit\n• LinkedIn\n• CapCut\n• Dailymotion\n• Kwai / Kuaishou\n• Douyin\n• Bluesky\n• Tumblr',
@@ -30,6 +32,10 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noLink: "× يا عمري، يرجى تقديم رابط فيديو صحيح أو الرد على رسالة تحتوي على رابط! 🥺🍓",
+                        error: "× يا حياتي، حدث خطأ أثناء تحميل الفيديو: %1. تواصل مع MahMUD للمساعدة\n•WhatsApp: 01836298139 🥺💔"
+                },
                 bn: {
                         noLink: "× বেবি, একটি সঠিক ভিডিও লিংক দাও অথবা লিংকে রিপ্লাই করো!",
                         error: "× ভিডিও ডাউনলোড করতে সমস্যা হয়েছে: %1। প্রয়োজনে Contact MahMUD।\n•WhatsApp: 01836298139"
