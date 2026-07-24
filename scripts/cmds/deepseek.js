@@ -13,17 +13,24 @@ module.exports = {
                 countDown: 5,
                 role: 0,
                 description: {
+                        ar: "احصل على إجابات ذكية من DeepSeek AI بكل حب ودلع جزائري ✨🩵",
                         bn: "ডিপসিক এআই এর মাধ্যমে আপনার প্রশ্নের উত্তর পান",
                         en: "Get answers from DeepSeek AI"
                 },
                 category: "ai",
                 guide: {
+                        ar: '   {pn} <سؤال>: اسأل الذكاء الاصطناعي أي شي يا عيوني\n   تقدر تواصل الهضرة والدردشة بالريبلاي (Reply) 🥺🍓',
                         bn: '   {pn} <প্রশ্ন>: যেকোনো কিছু জিজ্ঞাসা করুন\n   রিপ্লাইয়ের মাধ্যমে কথোপকথন চালিয়ে যেতে পারবেন',
                         en: '   {pn} <prompt>: Ask anything to AI\n   You can continue chat by replying'
                 }
         },
 
         langs: {
+                ar: {
+                        noPrompt: "⚠️ يا روحي، عطيني سؤال باش نجاوبك! مثال: {pn} شكون أنت؟ 🥺",
+                        noResponse: "× ما كاش رد من الذكاء الاصطناعي يا عمري.",
+                        error: "× صرا مشكل يا قلبي: %1. عيط لـ MahMUD يعاونك."
+                },
                 bn: {
                         noPrompt: "⚠️ বেবি, কিছু তো জিজ্ঞাসা করো! উদাহরণ: {pn} তুমি কে?",
                         noResponse: "× এআই থেকে কোনো উত্তর পাওয়া যায়নি।",
