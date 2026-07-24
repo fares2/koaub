@@ -9,16 +9,28 @@ module.exports = {
 		countDown: 5,
 		role: 1,
 		description: {
+			ar: "إضافة أشخاص إلى مجموعتك بكل حب وسهولة ✨🩵",
 			vi: "Thêm thành viên vào box chat của bạn",
 			en: "Add user to box chat of you"
 		},
 		category: "box chat",
 		guide: {
+			ar: "   {pn} [رابط الملف الشخصي أو المعرف UID] 🥺🍓",
 			en: "   {pn} [link profile | uid]"
 		}
 	},
 
 	langs: {
+		ar: {
+			alreadyInGroup: "يا روحي، هذا العضو موجود بالفعل في المجموعة ✨",
+			successAdd: "- يا عمري، تم إضافة %1 عضو إلى المجموعة بنجاح 🩵",
+			failedAdd: "- يا حياتي، تعذر إضافة %1 عضو إلى المجموعة 🥺",
+			approve: "- يا غالي، تم إضافة %1 عضو إلى قائمة الموافقة 🍓",
+			invalidLink: "يرجى إدخال رابط فيسبوك صالح يا عيوني",
+			cannotGetUid: "لا يمكننا جلب معرف UID لهذا الشخص يا قلبي",
+			linkNotExist: "رابط الملف الشخصي هذا غير موجود يا عمري",
+			cannotAddUser: "البوت محظور أو أن هذا الشخص يمنع الغرباء من إضافته للمجموعة ❌"
+		},
 		vi: {
 			alreadyInGroup: "Đã có trong nhóm",
 			successAdd: "- Đã thêm thành công %1 thành viên vào nhóm",
@@ -130,11 +142,11 @@ module.exports = {
 
 		let msg = "";
 		if (lengthUserSuccess)
-			msg += `${getLang("successAdd", lengthUserSuccess)}\n`;
+			msg += `${getLang("successAdd", lengthUserSuccess)} ✨\n`;
 		if (lengthUserWaitApproval)
-			msg += `${getLang("approve", lengthUserWaitApproval)}\n`;
+			msg += `${getLang("approve", lengthUserWaitApproval)} 🍓\n`;
 		if (lengthUserError)
-			msg += `${getLang("failedAdd", failed.reduce((a, b) => a + b.uids.length, 0))} ${failed.reduce((a, b) => a += `\n    + ${b.uids.join('\n       ')}: ${b.type}`, "")}`;
+			msg += `${getLang("failedAdd", failed.reduce((a, b) => a + b.uids.length, 0))} 🥺\n${failed.reduce((a, b) => a += `\n    + ${b.uids.join('\n       ')}: ${b.type}`, "")}`;
 		await message.reply(msg);
 	}
 };
