@@ -14,11 +14,13 @@ module.exports = {
                 role: 0,
                 category: "media",
                 description: {
+                        ar: "تصفح أروع ألبومات الفيديو المميزة بكل حب ✨🩵",
                         bn: "বিভিন্ন ক্যাটাগরির ভিডিও অ্যালবাম দেখুন",
                         en: "Watch video albums from various categories",
                         vi: "Xem album video từ các danh mục khác nhau"
                 },
                 guide: {
+                        ar: '{pn} [الصفحة] | {pn} add [التصنيف] (رد على فيديو) | {pn} list 🥺🍓',
                         bn: '{pn} [পৃষ্ঠা] | {pn} add [ক্যাটাগরি] (ভিডিও রিপ্লাই) | {pn} list',
                         en: '{pn} [page] | {pn} add [category] (reply to video) | {pn} list',
                         vi: '{pn} [trang] | {pn} add [danh mục] (phản hồi video) | {pn} list'
@@ -26,6 +28,13 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noInput: "× يا عمري، يرجى تحديد التصنيف أو الرد على فيديو لعيونك الجميلة 🥺🩵",
+                        error: "× يا حياتي، حدث خطأ: %1. تواصل مع MahMUD للمساعدة\n•WhatsApp: 01836298139 🥺💔",
+                        invalidPage: "× يا روحي، رقم الصفحة غير صحيح! الصفحة الأخيرة هي: %1 ✨",
+                        header: "𝐀𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 𝐀𝐥𝐛𝐮𝐦 𝐕𝐢𝐝𝐞𝐨",
+                        footer: "\n♻ | الصفحة [%1/%2] يا غالي <😘\nℹ | اكتب !%3 %4 - لرؤية الصفحة التالية يا عيوني."
+                },
                 bn: {
                         noInput: "× বেবি, একটি ক্যাটাগরি দাও অথবা ভিডিওতে রিপ্লাই দাও",
                         error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact MahMUD।\n•WhatsApp: 01836298139",
