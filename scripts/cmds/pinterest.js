@@ -16,19 +16,27 @@ module.exports = {
                 countDown: 10,
                 role: 0,
                 description: {
+                        ar: "ابحث وحمل أي صور من بينتيريست بكل حب ورومانسية ✨🩵",
                         bn: "পিন্টারেস্ট থেকে যেকোনো ছবি সার্চ করে ডাউনলোড করুন",
                         en: "Search and download images from Pinterest",
                         vi: "Tìm kiếm và tải xuống hình ảnh từ Pinterest"
                 },
                 category: "image gen",
                 guide: {
-                        bn: '   {pn} <নাম> - <পরিমাণ>: (যেমন: {pn} goku - 10)',
+                        ar: '   {pn} <البحث> - <العدد>: (مثال: {pn} goku - 10) 🥺🍓',
+                        bn: '   {pn} <নাম> - <পরিমাণ>: (যেমন: {pn} gojo - 10)',
                         en: '   {pn} <query> - <amount>: (Ex: {pn} goku - 10)',
                         vi: '   {pn} <từ khóa> - <số lượng>: (VD: {pn} goku - 10)'
                 }
         },
 
         langs: {
+                ar: {
+                        noInput: "• يا روحي، واش من تصويرة راك حوس عليها؟ عطينا اسم البحث والعدد (مثال: {pn} goku - 10) 🥺🍓",
+                        noData: "× معليش يا عمري، ما لقيت حتى تصويرة تطابق البحث تاعك 🥺💔",
+                        success: "✅ | تفضل يا عيوني، هاذي هي الـ %2 تصاور لـ \"%1\" لعيونك 💕🩵",
+                        error: "× يا حياتي، صرا مشكل: %1. تواصل مع MahMUD يعاونك 🥺💔\n•WhatsApp: 01836298139"
+                },
                 bn: {
                         noInput: "× বেবি, কী ছবি খুঁজছো? নাম ও পরিমাণ দাও! 🔍\nউদাহরণ: {pn} goku - 10",
                         noData: "× দুঃখিত, আপনার সার্চ অনুযায়ী কোনো ছবি পাওয়া যায়নি।",
@@ -66,7 +74,7 @@ module.exports = {
                 if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
 
                 try {
-                        api.setMessageReaction("⏳", event.messageID, () => {}, true);
+                        api.setMessageReaction("🔥", event.messageID, () => {}, true);
 
                         const apiUrl = await mahmud();
                         const response = await axios.get(
