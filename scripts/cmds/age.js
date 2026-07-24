@@ -14,12 +14,14 @@ module.exports = {
                 countDown: 5,
                 role: 0,
                 description: {
+                        ar: "احسب عمرك الحالي بدقة من خلال إدخال تاريخ ميلادك بكل حب ✨🩵",
                         bn: "আপনার জন্ম তারিখ দিয়ে বর্তমান বয়স ক্যালকুলেট করুন",
                         en: "Calculate your current age using date of birth",
                         vi: "Tính tuổi hiện tại của bạn bằng ngày sinh"
                 },
                 category: "utility",
                 guide: {
+                        ar: '   {pn} <YYYY-MM-DD>: (مثال: {pn} 2002-05-15) 🥺🍓',
                         bn: '   {pn} <YYYY-MM-DD>: (যেমন: {pn} 2002-05-15)',
                         en: '   {pn} <YYYY-MM-DD>: (Ex: {pn} 2002-05-15)',
                         vi: '   {pn} <YYYY-MM-DD>: (VD: {pn} 2002-05-15)'
@@ -27,6 +29,10 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noInput: "× يا عمري، يرجى إدخال تاريخ ميلادك لكي نحسب عمرك!\n\nمثال: {pn} 2002-05-15 🥺🍓",
+                        error: "× يا حياتي، حدث خطأ: %1. تواصل مع MahMUD للمساعدة 🥺💔"
+                },
                 bn: {
                         noInput: "× বেবি, তোমার জন্ম তারিখ দাও!\n\nউদাহরণ: {pn} 2002-05-15",
                         error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact MahMUD।"
