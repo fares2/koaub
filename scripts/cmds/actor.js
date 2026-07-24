@@ -14,12 +14,14 @@ module.exports = {
                 countDown: 10,
                 role: 0,
                 description: {
+                        ar: "لعبة حب وورود لتخمين اسم الممثل من عيني الغالي ✨🩵",
                         bn: "অভিনেতার ছবি দেখে নাম অনুমান করার খেলা",
                         en: "Guess the actor name by looking at the picture",
                         vi: "Đoán tên diễn viên bằng cách nhìn vào bức ảnh"
                 },
                 category: "game",
                 guide: {
+                        ar: '   {pn}: اكتب الأمر باش نبدوا قصة الحب اللعبة معنا 🥺🍓',
                         bn: '   {pn}: গেমটি শুরু করতে লিখুন',
                         en: '   {pn}: Type to start the game',
                         vi: '   {pn}: Nhập để bắt đầu trò chơi'
@@ -27,6 +29,13 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        start: "يا نور عيني، طاح علينا وجه زين اليوم! شكون هذا الممثل؟ خمن اسمه يا عمري وخلي قلبي يفرح بك ✨🥺🩵",
+                        correct: "❤️ | الله يبارك يا عمري، إجابتك في الصواب كي العادة! ديت معانا %1 نقطة حب و %2 شوق باش تبقى ديما بقربي 🍓✨",
+                        wrong: "🥺 | معليش يا حياتي، غالطت هذه الخطرة بصح قلبي مسامحك! الإجابة الصحيحة لعيونك هي: %1 😭🩵",
+                        notYour: "× يا روحي، هذه اللعبة ماشي ليك وحدك، روح ابدأ لعبتك الخاصة وخلي الناس تعشق! >🐸✨",
+                        error: "× يا الغالي، صراتلنا مشكل صغيرة في طريقي ليك: %1. عيط لـ MahMUD باش يعاود يسقمها لنا 🥺💔"
+                },
                 bn: {
                         start: "একজন অভিনেতার ছবি এসেছে! নামটা বলো তো বেবি?",
                         correct: "✅ | একদম সঠিক উত্তর বেবি!\n\nতুমি জিতেছো %1 কয়েন এবং %2 এক্সপি।",
@@ -106,7 +115,7 @@ module.exports = {
                                 },
                                 event.threadID,
                                 (err, info) => {
-                                        if (err) return api.sendMessage("❌ Failed to send actor image.", event.threadID);
+                                        if (err) return api.sendMessage("❌ معليش يا عمري، ما حبش يخرج لينا تصوير الحبيب 🥺💔", event.threadID);
 
                                         global.GoatBot.onReply.set(info.messageID, {
                                                 commandName: this.config.name,
