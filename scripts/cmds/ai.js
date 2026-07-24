@@ -13,12 +13,14 @@ module.exports = {
                 countDown: 5,
                 role: 0,
                 description: {
+                        ar: "تحدث مع المساعد الذكي في أي موضوع بكل حب ورومانسية ✨🩵",
                         bn: "যেকোনো বিষয়ে এআই সহকারীর সাথে চ্যাট করুন",
                         en: "Chat with an AI assistant on any topic",
                         vi: "Trò chuyện với trợ lý AI về bất kỳ chủ đề nào"
                 },
                 category: "ai",
                 guide: {
+                        ar: '   {pn} <سؤالك>: اكتب سؤالك لنتحدث سوياً 🥺🍓',
                         bn: '   {pn} <প্রশ্ন>: আপনার প্রশ্নটি লিখুন',
                         en: '   {pn} <question>: Type your question',
                         vi: '   {pn} <câu hỏi>: Nhập câu hỏi của bạn'
@@ -26,6 +28,10 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noInput: "× يا عمري، اكتب لي شيئاً لنتحدث عنه معاً! 🥺🍓",
+                        error: "× يا حياتي، حدث خطأ: %1. تواصل مع MahMUD للمساعدة\n•WhatsApp: 01836298139 🥺💔"
+                },
                 bn: {
                         noInput: "× বেবি, কিছু তো জিজ্ঞাসা করো!",
                         error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact MahMUD|\n•WhatsApp: 01836298139"
