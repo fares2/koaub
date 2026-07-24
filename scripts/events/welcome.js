@@ -1,4 +1,8 @@
 const { getTime, drive } = global.utils;
+const fs = require("fs-extra");
+const path = require("path");
+const Canvas = require("@napi-rs/canvas");
+const axios = require("axios");
 if (!global.temp.welcomeEvent)
 	global.temp.welcomeEvent = {};
 
