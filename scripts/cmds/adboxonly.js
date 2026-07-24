@@ -7,11 +7,14 @@ module.exports = {
 		countDown: 5,
 		role: 1,
 		description: {
+			ar: "تشغيل/إيقاف وضع مسؤولي المجموعة فقط لاستخدام البوت ✨🩵",
 			vi: "bật/tắt chế độ chỉ quản trị của viên nhóm mới có thể sử dụng bot",
 			en: "turn on/off only admin box can use bot"
 		},
 		category: "box chat",
 		guide: {
+			ar: "   {pn} [on | off]: تشغيل أو إيقاف وضع مسؤولي المجموعة فقط لاستخدام البوت 🥺🍓"
+				+ "\n   {pn} noti [on | off]: تشغيل أو إيقاف الإشعار عندما يحاول شخص ليس مسؤولاً استخدام البوت ✨",
 			vi: "   {pn} [on | off]: bật/tắt chế độ chỉ quản trị viên nhóm mới có thể sử dụng bot"
 				+ "\n   {pn} noti [on | off]: bật/tắt thông báo khi người dùng không phải là quản trị viên nhóm sử dụng bot",
 			en: "   {pn} [on | off]: turn on/off the mode only admin of group can use bot"
@@ -20,6 +23,13 @@ module.exports = {
 	},
 
 	langs: {
+		ar: {
+			turnedOn: "يا عمري، تم تشغيل وضع مسؤولي المجموعة فقط لاستخدام البوت بنجاح ✨🩵",
+			turnedOff: "يا روحي، تم إيقاف وضع مسؤولي المجموعة وأصبح بإمكان الجميع استخدام البوت 🥺🍓",
+			turnedOnNoti: "يا غالي، تم تفعيل إشعار التنبيه عندما يحاول غير المسؤول استخدام البوت 🩵✨",
+			turnedOffNoti: "يا حياتي، تم إيقاف إشعار التنبيه لغير المسؤولين بنجاح 🥺",
+			syntaxError: "يا قلبي، خطأ في كتابة الأمر! يمكنك فقط استخدام {pn} on أو {pn} off ❌🍓"
+		},
 		vi: {
 			turnedOn: "Đã bật chế độ chỉ quản trị viên nhóm mới có thể sử dụng bot",
 			turnedOff: "Đã tắt chế độ chỉ quản trị viên nhóm mới có thể sử dụng bot",
