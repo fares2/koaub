@@ -15,12 +15,14 @@ module.exports = {
                 countDown: 5,
                 role: 0,
                 description: {
+                        ar: "حمل الأغاني والصوتيات من اليوتيوب بكل حب ودلع جزائري ✨🩵",
                         bn: "ইউটিউব থেকে গান ডাউনলোড করুন",
                         en: "Download songs/audio from YouTube",
                         vi: "Tải nhạc từ YouTube"
                 },
                 category: "music",
                 guide: {
+                        ar: '   {pn} [اسم الأغنية أو الرابط]\n   مثال: {pn} stay justin bieber يا عمري 🥺🍓',
                         bn: '   {pn} [গানের নাম বা লিঙ্ক]\n   উদাহরণ: {pn} tui chinli na amay',
                         en: '   {pn} [song name or link]\n   Example: {pn} stay justin bieber',
                         vi: '   {pn} [tên bài hát hoặc link]\n   Ví dụ: {pn} see you again'
@@ -28,6 +30,12 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        error: "❌ | صرا مشكل يا قلبي: %1",
+                        noResult: "⭕ | عذراً يا عمري، ما لقيت حتى نتيجة لـ \"%1\".",
+                        choose: "قائمة الأغاني يا عيوني:\n\n%1\nاكتب رقم الأغنية باش تريپلي (Reply) وتحملها 🥺🍓",
+                        success: "✅ | تم التحميل بنجاح يا روحي: %1"
+                },
                 bn: {
                         error: "❌ | সমস্যা হয়েছে: %1",
                         noResult: "⭕ | দুঃখিত বেবি, \"%1\" এর জন্য কিছু খুঁজে পাইনি।",
@@ -51,7 +59,7 @@ module.exports = {
                 const { threadID, messageID, senderID } = event;
                 const input = args.join(" ");
 
-                if (!input) return api.sendMessage("• Please provide a song name or send link.", threadID, messageID);
+                if (!input) return api.sendMessage("• يا عمري، عطيني اسم الأغنية ولا الرابط باش نحملها!", threadID, messageID);
 
                 const apiUrl = await baseApiUrl();
                 const checkurl = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})(?:\S+)?$/;
@@ -109,7 +117,7 @@ module.exports = {
                 
                 const videoID = results[choice - 1].id;
                 api.unsendMessage(Reply.messageID);
-                api.setMessageReaction("⌛", event.messageID, () => {}, true);
+                api.setMessageReaction("🔥", event.messageID, () => {}, true);
                
                 await handleDownload(api, event.threadID, event.messageID, videoID, apiUrl, getLang);
         }
@@ -133,7 +141,7 @@ async function handleDownload(api, threadID, messageID, videoID, apiUrl, getLang
                                 body: getLang("success", title),
                                 attachment: fs.createReadStream(filePath)
                         }, threadID, () => { 
-                                api.setMessageReaction("✅", messageID, () => {}, true);
+                                api.setMessageReaction("✨", messageID, () => {}, true);
                                 if (fs.existsSync(filePath)) fs.unlinkSync(filePath); 
                         }, messageID);
                 });
