@@ -179,7 +179,7 @@ module.exports.onChat = async ({ api, event }) => {
         const attachments = event.attachments || [];
 
         if (event.type !== "message_reply" && mahmud.some(word => message.startsWith(word))) {
-            api.setMessageReaction("🪽", event.messageID, () => { }, true);
+            api.setMessageReaction("✨", event.messageID, () => { }, true);
             api.sendTypingIndicator(event.threadID, true);
             
             const messageParts = message.trim().split(/\s+/);
@@ -201,7 +201,9 @@ module.exports.onChat = async ({ api, event }) => {
                                 "مكاش كيفك يا الغالي، راك عسل ✨",
                                 "أنت عمري، واش راك حاب ندير لك اليوم؟ 🥺",
                                 "بزاف راك تحوس عليا يا عمري، نحبك بزاف 💕",
-                                "يا حنون، راني هنا غير لعيونك 🩵"
+                                "يا حنون، راني هنا غير لعيونك 🩵",
+                                "نعم تفضل ياحبي 🥺"
+                                 
                              ];
 
              const hinataMessage = randomMessage[Math.floor(Math.random() * randomMessage.length)];
