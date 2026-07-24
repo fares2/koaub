@@ -9,12 +9,14 @@ module.exports = {
                 countDown: 5,
                 role: 2,
                 description: {
+                        ar: "إضافة، إزالة، أو عرض قائمة مسؤولي البوت بكل حب ✨🩵",
                         bn: "বোট অ্যাডমিন যোগ, অপসারণ বা তালিকা দেখুন",
                         en: "Add, remove, or list bot admins",
                         vi: "Thêm, xóa, sửa quyền admin"
                 },
                 category: "box chat",
                 guide: {
+                        ar: '   {pn} [add | -a] <uid | @tag>: لإضافة مسؤول جديد 🥺🍓\n   {pn} [remove | -r] <uid | @tag>: لإزالة مسؤول\n   {pn} [list | -l]: لعرض قائمة المسؤولين ✨',
                         bn: '   {pn} add [ID | @tag]: অ্যাডমিন যোগ করতে\n   {pn} remove [ID | @tag]: অ্যাডমিন সরাতে\n   {pn} list: অ্যাডমিন লিস্ট দেখতে',
                         en: '   {pn} [add | -a] <uid | @tag>: Add admin role\n   {pn} [remove | -r] <uid | @tag>: Remove admin role\n   {pn} [list | -l]: List all admins',
                         vi: '   {pn} [add | -a] <uid | @tag>: Thêm quyền admin\n   {pn} [remove | -r] <uid | @tag>: Xóa quyền admin\n   {pn} [list | -l]: Liệt kê danh sách admin'
@@ -22,6 +24,15 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        added: "✅ | يا عمري، تم بنجاح إضافة صلاحية المسؤول لـ %1 مستخدم:\n%2 🩵",
+                        alreadyAdmin: "\n⚠️ | يا روحي، هؤلاء الـ %1 مستخدمين هم مسؤولون بالفعل:\n%2 ✨",
+                        missingIdAdd: "⚠️ | يا عيوني، يرجى كتابة المعرف UID أو الإشارة إلى الشخص لإضافته كمؤول! 🥺🍓",
+                        removed: "✅ | يا غالي، تم بنجاح إزالة صلاحية المسؤول من %1 مستخدم:\n%2 🩵",
+                        notAdmin: "⚠️ | يا قلبي، هؤلاء الـ %1 مستخدمين لم يكونوا في قائمة المسؤولين:\n%2 ❌",
+                        missingIdRemove: "⚠️ | يا حياتي، يرجى كتابة المعرف UID أو الإشارة إلى الشخص لإزالة صلاحية المسؤول! 🥺",
+                        listAdmin: "👑 | قائمة مسؤولي البوت المعشوقين:\n\n%1 ✨🩵"
+                },
                 bn: {
                         added: "✅ | সফলভাবে %1 জনকে অ্যাডমিন করা হয়েছে:\n%2",
                         alreadyAdmin: "\n⚠️ | %1 জন আগে থেকেই অ্যাডমিন ছিল:\n%2",
