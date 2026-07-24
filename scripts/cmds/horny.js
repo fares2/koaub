@@ -17,12 +17,14 @@ module.exports = {
                 role: 0,
                 description: {
                         bn: "রেন্ডম হর্নি ভিডিও দেখুন (১৮+)",
-                        en: "Watch random horny videos (18+)"
+                        en: "Watch random horny videos (18+)",
+                        ar: "شاهد فيديوهات عشوائية (18+)"
                 },
                 category: "18+",
                 guide: {
                         bn: '   {pn}: রেন্ডম ভিডিও পেতে ব্যবহার করুন',
-                        en: '   {pn}: Use to get a random video'
+                        en: '   {pn}: Use to get a random video',
+                        ar: '   {pn}: استعمله باش تحصل على فيديو عشوائي'
                 }
         },
 
@@ -38,6 +40,12 @@ module.exports = {
                         downloadErr: "× Video download error.",
                         success: "𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐇𝐨𝐫𝐧𝐲 𝐯𝐢𝐝𝐞𝐨 <😘",
                         error: "× API error: %1. Contact MahMUD for help.\n•WhatsApp: 01836298139"
+                },
+                ar: {
+                        notFound: "🥺 يا قلبي، ما لقيت حتى فيديو حالياً سامحني!",
+                        downloadErr: "😭 صرا مشكل كي كنت نحمل في الفيديو يا روح قلبي.",
+                        success: "✨ ها هو الفيديو لي يزهي خاطرك يا غالي <😘",
+                        error: "⚠️ عَصَب السيستم وقالي كاين مشكل: %1. تقدر تواصل مع MahMUD.\n•WhatsApp: 01836298139"
                 }
         },
 
