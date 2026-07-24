@@ -6,11 +6,13 @@ module.exports = {
 		countDown: 5,
 		role: 1,
 		description: {
+			ar: "منشن جميع أعضاء القروب يا بعد عمري ✨🩵",
 			vi: "Tag tất cả thành viên trong nhóm chat của bạn",
 			en: "Tag all members in your group chat"
 		},
 		category: "box chat",
 		guide: {
+			ar: "   {pn} [الرسالة | أو اتركه فارغاً يا روحي] 🥺🍓",
 			vi: "   {pn} [nội dung | để trống]",
 			en: "   {pn} [content | empty]"
 		}
