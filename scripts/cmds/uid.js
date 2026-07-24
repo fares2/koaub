@@ -9,11 +9,13 @@ module.exports = {
 		countDown: 5,
 		role: 0,
 		description: {
+			ar: "اعرض معرف فايسبوك (UID) الخاص بالمستخدمين بكل حب ودلع جزائري ✨🩵",
 			vi: "Xem user id facebook của người dùng",
 			en: "View facebook user id of user"
 		},
 		category: "info",
 		guide: {
+			ar: '   {pn}: استعمله باش تشوف الأي دي (UID) تاعك يا عمري\n   {pn} @tag: باش تشوف أي دي تاع ناس آخرين\n   {pn} <link profile>: جيب أي دي من رابط البروفايل\n   أو رپلي (Reply) على ميساج شخص باش تجيب الأي دي تاعو 🥺🍓',
 			vi: "   {pn}: dùng để xem id facebook của bạn"
 				+ "\n   {pn} @tag: xem id facebook của những người được tag"
 				+ "\n   {pn} <link profile>: xem id facebook của link profile"
@@ -26,6 +28,9 @@ module.exports = {
 	},
 
 	langs: {
+		ar: {
+			syntaxError: "يا روحي، يا اما تتاكي شخص ولا تخليها خاوية باش تشوف الأي دي (UID) تاعك! 🥺"
+		},
 		vi: {
 			syntaxError: "Vui lòng tag người muốn xem uid hoặc để trống để xem uid của bản thân"
 		},
