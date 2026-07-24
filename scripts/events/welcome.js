@@ -3,6 +3,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const Canvas = require("@napi-rs/canvas");
 const axios = require("axios");
+const welcomeCanvas = require("../utils/welcomeCanvas");
 if (!global.temp.welcomeEvent)
 	global.temp.welcomeEvent = {};
 
