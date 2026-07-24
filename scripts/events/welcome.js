@@ -6,10 +6,28 @@ const axios = require('axios');
 module.exports = {
     config: {
         name: "welcome",
-        version: "2.3.0",
+        version: "3.4.0",
         author: "Fares",
         category: "events",
-        description: "توليد بنر ترحيب احترافي للأعضاء الجدد وتغيير اللقب بدقة عالية"
+        description: "نظام ترحيب احترافي متوافق مع Hinata/GoatBot مع دعم الكانفاس واللغات وتغيير اللقب"
+    },
+
+    langs: {
+        en: {
+            welcomeMessage: "Welcome",
+            enjoyStay: "Enjoy your stay ❤️",
+            welcomeBody: "Welcome {name} to our community! ✨"
+        },
+        ar: {
+            session1: "صباحًا",
+            session2: "ظهرًا",
+            session3: "مساءً",
+            session4: "ليلًا",
+            welcomeMessage: "شكراً لإضافتي إلى المجموعة 🌸",
+            multiple1: "بك",
+            multiple2: "بكم",
+            defaultWelcomeMessage: "أهلاً {userName}\nمرحباً {multiple} في {boxName}\nنتمنى لكم {session} سعيداً 🌹"
+        }
     },
 
     onStart: async ({ api, event }) => {
@@ -17,42 +35,40 @@ module.exports = {
 
         return async function () {
             const { threadID, logMessageData } = event;
-            
-            if (logMessageData.addedParticipants.some(i => i.userFbId == api.getCurrentUserID())) return;
+            const botID = api.getCurrentUserID();
+
+            if (logMessageData.addedParticipants.some(i => i.userFbId == botID)) return;
 
             try {
                 const addedParticipants = logMessageData.addedParticipants;
                 
-                // تصحيح مسارات الملفات لتخرج من مجلد events وتصل للمكان الصحيح
-                const assetsPath = join(__dirname, "..", "assets");
-                const welcomePath = join(assetsPath, 'welcome');
-                const fontPath = join(assetsPath, 'fonts', 'Poppins-Bold.ttf');
-                const framePath = join(assetsPath, 'frame.png');
-                
+                const assetsPath = join(__dirname, "..", "assets", "welcome");
+                const fontsPath = join(__dirname, "..", "assets", "fonts", "Poppins-Bold.ttf");
+                const framePath = join(__dirname, "..", "assets", "frame.png");
                 const tmpPath = join(__dirname, "..", "tmp");
+
                 if (!fs.existsSync(tmpPath)) {
                     fs.mkdirSync(tmpPath, { recursive: true });
                 }
 
-                if (!global.loadedWelcomeFont) {
-                    if (fs.existsSync(fontPath)) {
-                        GlobalFonts.registerFromPath(fontPath, "Poppins");
+                if (!global.hinataWelcomeFontLoaded) {
+                    if (fs.existsSync(fontsPath)) {
+                        GlobalFonts.registerFromPath(fontsPath, "Poppins");
                     }
-                    global.loadedWelcomeFont = true;
+                    global.hinataWelcomeFontLoaded = true;
                 }
 
-                // جلب اسم المجموعة لاستخدامه في البنر
                 let groupName = "Community";
                 try {
-                    const info = await api.getThreadInfo(threadID);
-                    if (info && info.threadName) {
-                        groupName = info.threadName;
+                    const threadInfo = await api.getThreadInfo(threadID);
+                    if (threadInfo && threadInfo.threadName) {
+                        groupName = threadInfo.threadName;
                     }
-                } catch (e) {
-                    console.log("Thread Info Error:", e.message);
+                } catch (err) {
+                    console.log("Hinata v3 - Thread Info Warning:", err.message);
                 }
 
-                for (let participant of addedParticipants) {
+                for (const participant of addedParticipants) {
                     const rawName = (participant.fullName || "Member").trim().split(/\s+/)[0];
                     const name = rawName.charAt(0).toUpperCase() + rawName.slice(1);
                     const uid = participant.userFbId;
@@ -63,32 +79,32 @@ module.exports = {
                     ctx.imageSmoothingEnabled = true;
                     ctx.imageSmoothingQuality = "high";
 
-                    let background;
-                    if (fs.existsSync(welcomePath)) {
-                        const backgrounds = fs.readdirSync(welcomePath)
+                    let background = null;
+                    if (fs.existsSync(assetsPath)) {
+                        const bgFiles = fs.readdirSync(assetsPath)
                             .filter(file => /\.(png|jpg|jpeg|webp)$/i.test(file));
                         
-                        if (backgrounds.length > 0) {
-                            const bgFile = join(welcomePath, backgrounds[Math.floor(Math.random() * backgrounds.length)]);
-                            background = await loadImage(bgFile);
+                        if (bgFiles.length > 0) {
+                            const randomBg = bgFiles[Math.floor(Math.random() * bgFiles.length)];
+                            background = await loadImage(join(assetsPath, randomBg));
                         }
                     }
 
                     if (background) {
                         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
                     } else {
-                        ctx.fillStyle = '#1e1e1e';
+                        ctx.fillStyle = '#111111';
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
                     }
 
                     const avatarUrl = `https://graph.facebook.com/${uid}/picture?width=512&height=512`;
                     try {
-                        const response = await axios.get(avatarUrl, {
+                        const avatarRes = await axios.get(avatarUrl, {
                             responseType: "arraybuffer",
                             timeout: 10000
                         });
-                        const avatar = await loadImage(Buffer.from(response.data));
-                        
+                        const avatarImg = await loadImage(Buffer.from(avatarRes.data));
+
                         ctx.save();
                         ctx.beginPath();
                         
@@ -99,7 +115,7 @@ module.exports = {
                         ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
                         ctx.closePath();
                         ctx.clip();
-                        ctx.drawImage(avatar, centerX - radius, centerY - radius, radius * 2, radius * 2);
+                        ctx.drawImage(avatarImg, centerX - radius, centerY - radius, radius * 2, radius * 2);
                         ctx.restore();
 
                         ctx.beginPath();
@@ -107,64 +123,62 @@ module.exports = {
                         ctx.lineWidth = 8;
                         ctx.strokeStyle = "#ffffff";
                         ctx.stroke();
-                    } catch (e) {
-                        console.log("Avatar Load Error:", e.message);
+                    } catch (avatarErr) {
+                        console.log("Hinata v3 - Avatar Load Error:", avatarErr.message);
                     }
 
                     if (fs.existsSync(framePath)) {
-                        const frame = await loadImage(framePath);
-                        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+                        const frameImg = await loadImage(framePath);
+                        ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
                     }
 
                     ctx.textAlign = 'center';
-                    ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
-                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+                    ctx.shadowBlur = 12;
 
-                    // التصميم والنصوص المحسنة
-                    ctx.font = 'bold 70px "Poppins", sans-serif';
+                    ctx.font = 'bold 65px "Poppins", sans-serif';
                     ctx.fillStyle = "#ffffff";
-                    ctx.fillText("WELCOME", canvas.width / 2, 470);
+                    ctx.fillText("WELCOME", canvas.width / 2, 450);
 
                     ctx.font = 'bold 45px "Poppins", sans-serif';
                     ctx.fillStyle = '#ffeb3b';
-                    ctx.fillText(name, canvas.width / 2, 560);
+                    ctx.fillText(name, canvas.width / 2, 530);
 
-                    ctx.font = '35px "Poppins", sans-serif';
-                    ctx.fillStyle = "#dcdcdc";
-                    ctx.fillText("Enjoy your stay ❤️", canvas.width / 2, 630);
-
-                    // إضافة اسم المجموعة في الأسفل بشكل أنيق
-                    ctx.font = '32px "Poppins", sans-serif';
+                    ctx.font = 'bold 38px "Poppins", sans-serif';
                     ctx.fillStyle = "#ffffff";
-                    ctx.fillText(groupName, canvas.width / 2, 680);
+                    ctx.fillText("أهلاً بك في العائلة ❤️", canvas.width / 2, 600);
+
+                    ctx.font = '32px "Poppins", sans-serif';
+                    ctx.fillStyle = "#dcdcdc";
+                    ctx.fillText(groupName, canvas.width / 2, 665);
 
                     ctx.shadowBlur = 0;
                     ctx.shadowColor = "transparent";
 
-                    const pathSave = join(tmpPath, `welcome_${uid}_${Date.now()}.png`);
-                    const buffer = canvas.toBuffer('image/png');
-                    fs.writeFileSync(pathSave, buffer);
+                    const savePath = join(tmpPath, `welcome_${uid}_${Date.now()}.png`);
+                    fs.writeFileSync(savePath, canvas.toBuffer('image/png'));
 
-                    // إرسال الرسالة بالطريقة المتوافقة مع GoatBot باستخدام Callback
                     api.sendMessage({
-                        body: `أهلاً بك ${name} في المجموعة! 🎉`,
-                        attachment: fs.createReadStream(pathSave)
+                        body: `أهلاً بك ${name} في مجموعة ${groupName}! 🎉\nWelcome ${name} to our community! ✨`,
+                        attachment: fs.createReadStream(savePath)
                     }, threadID, () => {
                         setTimeout(() => {
-                            fs.unlink(pathSave, () => {});
-                        }, 3000);
+                            if (fs.existsSync(savePath)) {
+                                fs.unlink(savePath, () => {});
+                            }
+                        }, 4000);
                     });
 
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    await new Promise(resolve => setTimeout(resolve, 1200));
 
                     try {
-                        api.changeNickname(`${name} 🍓`, threadID, uid);
-                    } catch (e) {
-                        console.log("Nickname Error:", e.message);
+                        api.changeNickname(`[🍓] ${name}`, threadID, uid);
+                    } catch (nickErr) {
+                        console.log("Hinata v3 - Nickname Error:", nickErr.message);
                     }
                 }
-            } catch (error) {
-                console.error("خطأ في إنشاء بنر الترحيب:", error);
+            } catch (globalErr) {
+                console.error("Hinata v3 - Critical Welcome Error:", globalErr);
             }
         };
     }
