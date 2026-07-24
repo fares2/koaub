@@ -1,137 +1,171 @@
-const { getTime, drive } = global.utils;
-const fs = require("fs-extra");
-const path = require("path");
-const Canvas = require("@napi-rs/canvas");
-const axios = require("axios");
-const welcomeCanvas = require("../utils/welcomeCanvas");
-if (!global.temp.welcomeEvent)
-	global.temp.welcomeEvent = {};
+const { createCanvas, loadImage, GlobalFonts } = require("@napi-rs/canvas");
+const { join } = require('path');
+const fs = require('fs');
+const axios = require('axios');
 
 module.exports = {
-	config: {
-		name: "welcome",
-		version: "1.7",
-		author: "NTKhang",
-		category: "events"
-	},
+    config: {
+        name: "welcome",
+        version: "2.3.0",
+        author: "Fares",
+        category: "events",
+        description: "توليد بنر ترحيب احترافي للأعضاء الجدد وتغيير اللقب بدقة عالية"
+    },
 
-	langs: {
-		vi: {
-			session1: "sáng",
-			session2: "trưa",
-			session3: "chiều",
-			session4: "tối",
-			welcomeMessage: "Cảm ơn bạn đã mời tôi vào nhóm!\nPrefix bot: %1\nĐể xem danh sách lệnh hãy nhập: %1help",
-			multiple1: "bạn",
-			multiple2: "các bạn",
-			defaultWelcomeMessage: "Xin chào {userName}.\nChào mừng bạn đến với {boxName}.\nChúc bạn có buổi {session} vui vẻ!"
-		},
-		en: {
-			session1: "morning",
-			session2: "noon",
-			session3: "afternoon",
-			session4: "evening",
-			welcomeMessage: "Thank you for inviting me to the group!\nBot prefix: %1\nTo view the list of commands, please enter: %1help",
-			multiple1: "you",
-			multiple2: "you guys",
-			defaultWelcomeMessage: `Hello {userName}.\nWelcome {multiple} to the chat group: {boxName}\nHave a nice {session} 😊`
-		}
-	},
+    onStart: async ({ api, event }) => {
+        if (event.logMessageType !== "log:subscribe") return;
 
-	onStart: async ({ threadsData, message, event, api, getLang }) => {
-		if (event.logMessageType == "log:subscribe")
-			return async function () {
-				const hours = getTime("HH");
-				const { threadID } = event;
-				const { nickNameBot } = global.GoatBot.config;
-				const prefix = global.utils.getPrefix(threadID);
-				const dataAddedParticipants = event.logMessageData.addedParticipants;
-				// if new member is bot
-				if (dataAddedParticipants.some((item) => item.userFbId == api.getCurrentUserID())) {
-					if (nickNameBot)
-						api.changeNickname(nickNameBot, threadID, api.getCurrentUserID());
-					return message.send(getLang("welcomeMessage", prefix));
-				}
-				// if new member:
-				if (!global.temp.welcomeEvent[threadID])
-					global.temp.welcomeEvent[threadID] = {
-						joinTimeout: null,
-						dataAddedParticipants: []
-					};
+        return async function () {
+            const { threadID, logMessageData } = event;
+            
+            if (logMessageData.addedParticipants.some(i => i.userFbId == api.getCurrentUserID())) return;
 
-				// push new member to array
-				global.temp.welcomeEvent[threadID].dataAddedParticipants.push(...dataAddedParticipants);
-				// if timeout is set, clear it
-				clearTimeout(global.temp.welcomeEvent[threadID].joinTimeout);
+            try {
+                const addedParticipants = logMessageData.addedParticipants;
+                
+                // تصحيح مسارات الملفات لتخرج من مجلد events وتصل للمكان الصحيح
+                const assetsPath = join(__dirname, "..", "assets");
+                const welcomePath = join(assetsPath, 'welcome');
+                const fontPath = join(assetsPath, 'fonts', 'Poppins-Bold.ttf');
+                const framePath = join(assetsPath, 'frame.png');
+                
+                const tmpPath = join(__dirname, "..", "tmp");
+                if (!fs.existsSync(tmpPath)) {
+                    fs.mkdirSync(tmpPath, { recursive: true });
+                }
 
-				// set new timeout
-				global.temp.welcomeEvent[threadID].joinTimeout = setTimeout(async function () {
-					const threadData = await threadsData.get(threadID);
-					if (threadData.settings.sendWelcomeMessage == false)
-						return;
-					const dataAddedParticipants = global.temp.welcomeEvent[threadID].dataAddedParticipants;
-					const dataBanned = threadData.data.banned_ban || [];
-					const threadName = threadData.threadName;
-					const userName = [],
-						mentions = [];
-					let multiple = false;
+                if (!global.loadedWelcomeFont) {
+                    if (fs.existsSync(fontPath)) {
+                        GlobalFonts.registerFromPath(fontPath, "Poppins");
+                    }
+                    global.loadedWelcomeFont = true;
+                }
 
-					if (dataAddedParticipants.length > 1)
-						multiple = true;
+                // جلب اسم المجموعة لاستخدامه في البنر
+                let groupName = "Community";
+                try {
+                    const info = await api.getThreadInfo(threadID);
+                    if (info && info.threadName) {
+                        groupName = info.threadName;
+                    }
+                } catch (e) {
+                    console.log("Thread Info Error:", e.message);
+                }
 
-					for (const user of dataAddedParticipants) {
-						if (dataBanned.some((item) => item.id == user.userFbId))
-							continue;
-						userName.push(user.fullName);
-						mentions.push({
-							tag: user.fullName,
-							id: user.userFbId
-						});
-					}
-					// {userName}:   name of new member
-					// {multiple}:
-					// {boxName}:    name of group
-					// {threadName}: name of group
-					// {session}:    session of day
-					if (userName.length == 0) return;
-					let { welcomeMessage = getLang("defaultWelcomeMessage") } =
-						threadData.data;
-					const form = {
-						mentions: welcomeMessage.match(/\{userNameTag\}/g) ? mentions : null
-					};
-					welcomeMessage = welcomeMessage
-						.replace(/\{userName\}|\{userNameTag\}/g, userName.join(", "))
-						.replace(/\{boxName\}|\{threadName\}/g, threadName)
-						.replace(
-							/\{multiple\}/g,
-							multiple ? getLang("multiple2") : getLang("multiple1")
-						)
-						.replace(
-							/\{session\}/g,
-							hours <= 10
-								? getLang("session1")
-								: hours <= 12
-									? getLang("session2")
-									: hours <= 18
-										? getLang("session3")
-										: getLang("session4")
-						);
+                for (let participant of addedParticipants) {
+                    const rawName = (participant.fullName || "Member").trim().split(/\s+/)[0];
+                    const name = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+                    const uid = participant.userFbId;
 
-					form.body = welcomeMessage;
+                    const canvas = createCanvas(1280, 720);
+                    const ctx = canvas.getContext('2d');
 
-					if (threadData.data.welcomeAttachment) {
-						const files = threadData.data.welcomeAttachment;
-						const attachments = files.reduce((acc, file) => {
-							acc.push(drive.getFile(file, "stream"));
-							return acc;
-						}, []);
-						form.attachment = (await Promise.allSettled(attachments))
-							.filter(({ status }) => status == "fulfilled")
-							.map(({ value }) => value);
-					}
-					message.send(form);
-					delete global.temp.welcomeEvent[threadID];
-				}, 1500);
-			};
-	}
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = "high";
+
+                    let background;
+                    if (fs.existsSync(welcomePath)) {
+                        const backgrounds = fs.readdirSync(welcomePath)
+                            .filter(file => /\.(png|jpg|jpeg|webp)$/i.test(file));
+                        
+                        if (backgrounds.length > 0) {
+                            const bgFile = join(welcomePath, backgrounds[Math.floor(Math.random() * backgrounds.length)]);
+                            background = await loadImage(bgFile);
+                        }
+                    }
+
+                    if (background) {
+                        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+                    } else {
+                        ctx.fillStyle = '#1e1e1e';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    }
+
+                    const avatarUrl = `https://graph.facebook.com/${uid}/picture?width=512&height=512`;
+                    try {
+                        const response = await axios.get(avatarUrl, {
+                            responseType: "arraybuffer",
+                            timeout: 10000
+                        });
+                        const avatar = await loadImage(Buffer.from(response.data));
+                        
+                        ctx.save();
+                        ctx.beginPath();
+                        
+                        const centerX = 210;
+                        const centerY = 360;
+                        const radius = 120;
+                        
+                        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
+                        ctx.closePath();
+                        ctx.clip();
+                        ctx.drawImage(avatar, centerX - radius, centerY - radius, radius * 2, radius * 2);
+                        ctx.restore();
+
+                        ctx.beginPath();
+                        ctx.arc(centerX, centerY, radius + 5, 0, Math.PI * 2);
+                        ctx.lineWidth = 8;
+                        ctx.strokeStyle = "#ffffff";
+                        ctx.stroke();
+                    } catch (e) {
+                        console.log("Avatar Load Error:", e.message);
+                    }
+
+                    if (fs.existsSync(framePath)) {
+                        const frame = await loadImage(framePath);
+                        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+                    }
+
+                    ctx.textAlign = 'center';
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+                    ctx.shadowBlur = 10;
+
+                    // التصميم والنصوص المحسنة
+                    ctx.font = 'bold 70px "Poppins", sans-serif';
+                    ctx.fillStyle = "#ffffff";
+                    ctx.fillText("WELCOME", canvas.width / 2, 470);
+
+                    ctx.font = 'bold 45px "Poppins", sans-serif';
+                    ctx.fillStyle = '#ffeb3b';
+                    ctx.fillText(name, canvas.width / 2, 560);
+
+                    ctx.font = '35px "Poppins", sans-serif';
+                    ctx.fillStyle = "#dcdcdc";
+                    ctx.fillText("Enjoy your stay ❤️", canvas.width / 2, 630);
+
+                    // إضافة اسم المجموعة في الأسفل بشكل أنيق
+                    ctx.font = '32px "Poppins", sans-serif';
+                    ctx.fillStyle = "#ffffff";
+                    ctx.fillText(groupName, canvas.width / 2, 680);
+
+                    ctx.shadowBlur = 0;
+                    ctx.shadowColor = "transparent";
+
+                    const pathSave = join(tmpPath, `welcome_${uid}_${Date.now()}.png`);
+                    const buffer = canvas.toBuffer('image/png');
+                    fs.writeFileSync(pathSave, buffer);
+
+                    // إرسال الرسالة بالطريقة المتوافقة مع GoatBot باستخدام Callback
+                    api.sendMessage({
+                        body: `أهلاً بك ${name} في المجموعة! 🎉`,
+                        attachment: fs.createReadStream(pathSave)
+                    }, threadID, () => {
+                        setTimeout(() => {
+                            fs.unlink(pathSave, () => {});
+                        }, 3000);
+                    });
+
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+
+                    try {
+                        api.changeNickname(`${name} 🍓`, threadID, uid);
+                    } catch (e) {
+                        console.log("Nickname Error:", e.message);
+                    }
+                }
+            } catch (error) {
+                console.error("خطأ في إنشاء بنر الترحيب:", error);
+            }
+        };
+    }
 };
