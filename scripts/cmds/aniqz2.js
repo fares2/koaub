@@ -14,12 +14,14 @@ module.exports = {
                 countDown: 10,
                 role: 0,
                 description: {
+                        ar: "لعبة أسئلة وأسرار الأنمي لاكتساب الكوينز والخبرة بكل حب ورومانسية ✨🩵",
                         bn: "অ্যানিমে কুইজ খেলে কয়েন এবং এক্সপি জিতুন",
                         en: "Play anime quiz to win coins and exp",
                         vi: "Chơi đố vui anime để giành được xu và exp"
                 },
                 category: "game",
                 guide: {
+                        ar: '   {pn} en: كويز باللغة الإنجليزية يا عيوني\n   {pn} bn: كويز باللغة البنغالية 🥺🍓',
                         bn: '   {pn} en: ইংরেজি কুইজ\n   {pn} bn: বাংলা কুইজ',
                         en: '   {pn} en: English quiz\n   {pn} bn: Bangla quiz',
                         vi: '   {pn} en: Câu đố tiếng Anh\n   {pn} bn: Câu đố tiếng Bengal'
@@ -27,6 +29,13 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        reply: "يا عمري، رد بـ الحرف الصحيح باش تربح معنا 🥺🩵",
+                        correct: "✅ | يالطييف عليك يا مبدع، إجابة صحيحة وصابت قلب العسل! 💕\n\nرايك ديت %1 كوينز و %2 خبرة لعيونك ✨",
+                        wrong: "❌ | معليش يا روحي، غالطة الإجابة هذه المرة!\n\nالإجابة الصحيحة كانت: %1 معليش تعوضها المرة الجاية 🥺💔",
+                        notYour: "× يا عمري، هذه ماشي مسابقتك! أفتح مسابقتك وحدك يا قلبي >🐸",
+                        error: "× يا حياتي، صرا مشكل: %1. تواصل مع MahMUD يعاونك 🥺💔"
+                },
                 bn: {
                         reply: "𝐑𝐞𝐩𝐥𝐲 𝐰𝐢𝐭𝐡 𝐲𝐨𝐮𝐫 𝐚𝐧𝐬𝐰𝐞𝐫.",
                         correct: "✅ | একদম সঠিক উত্তর বেবি! 💕\n\nতুমি জিতেছো %1 কয়েন এবং %2 এক্সপি।",
@@ -46,7 +55,7 @@ module.exports = {
                         correct: "✅ | Đáp án chính xác cưng ơi! 💕\n\nBạn nhận được %1 xu & %2 exp.",
                         wrong: "❌ | Sai rồi cưng ơi!\n\n💡 Đáp án đúng là: %1",
                         notYour: "× Đây không phải câu đố của bạn cưng à! >🐸",
-                        error: "× Lỗi: %1. Liên hệ MahMUD để được hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ MahMUD để hỗ trợ."
                 }
         },
 
