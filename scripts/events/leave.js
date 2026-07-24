@@ -8,7 +8,37 @@ module.exports = {
 		category: "events"
 	},
 
-	onStart: async ({ threadsData, message, event, api, usersData }) => {
+	langs: {
+		vi: {
+			session1: "sáng",
+			session2: "trưa",
+			session3: "chiều",
+			session4: "tối",
+			leaveType1: "tự rời",
+			leaveType2: "bị kick",
+			defaultLeaveMessage: "{userName} đã {type} khỏi nhóm"
+		},
+		en: {
+			session1: "morning",
+			session2: "noon",
+			session3: "afternoon",
+			session4: "evening",
+			leaveType1: "left",
+			leaveType2: "was kicked from",
+			defaultLeaveMessage: "{userName} {type} the group"
+		},
+		ar: {
+			session1: "صباح النور والسرور 🌸",
+			session2: "وقت الظهيرة ☀️",
+			session3: "العشية 🌇",
+			session4: "الليل 🌙",
+			leaveType1: "خرج وحدو 🚶‍♂️",
+			leaveType2: "علاش خرجتو رجعو 🥺",
+			defaultLeaveMessage: "🥺 يا قلبي، خونا {userName} {type}... حرام عليكم علاش خرجتو رجعو 😭💔"
+		}
+	},
+
+	onStart: async ({ threadsData, message, event, api, usersData, getLang }) => {
 		if (event.logMessageType == "log:unsubscribe")
 			return async function () {
 				const { threadID } = event;
@@ -20,18 +50,40 @@ module.exports = {
 					return;
 				const hours = getTime("HH");
 
+				const threadName = threadData.threadName;
 				const userName = await usersData.getName(leftParticipantFbId);
-				const type = leftParticipantFbId == event.author ? "خرج وحدو 🚶‍♂️" : "علاش خرجتو رجعو 🥺";
-				
-				const leaveMessage = `🥺 يا قلبي، خونا ${userName} ${type}... حرام عليكم علاش خرجتو رجعو 😭💔`;
 
+				let { leaveMessage = getLang("defaultLeaveMessage") } = threadData.data;
 				const form = {
-					body: leaveMessage,
-					mentions: [{
+					mentions: leaveMessage.match(/\{userNameTag\}/g) ? [{
 						tag: userName,
 						id: leftParticipantFbId
-					}]
+					}] : null
 				};
+
+				leaveMessage = leaveMessage
+					.replace(/\{userName\}|\{userNameTag\}/g, userName)
+					.replace(/\{type\][\s\S]*?/g, leftParticipantFbId == event.author ? getLang("leaveType1") : getLang("leaveType2"))
+					.replace(/\{type\}/g, leftParticipantFbId == event.author ? getLang("leaveType1") : getLang("leaveType2"))
+					.replace(/\{threadName\}|\{boxName\}/g, threadName)
+					.replace(/\{time\}/g, hours)
+					.replace(/\{session\}/g, hours <= 10 ?
+						getLang("session1") :
+						hours <= 12 ?
+							getLang("session2") :
+							hours <= 18 ?
+								getLang("session3") :
+								getLang("session4")
+					);
+
+				form.body = leaveMessage;
+
+				if (leaveMessage.includes("{userNameTag}")) {
+					form.mentions = [{
+						id: leftParticipantFbId,
+						tag: userName
+					}];
+				}
 
 				if (threadData.data.leaveAttachment) {
 					const files = threadData.data.leaveAttachment;
