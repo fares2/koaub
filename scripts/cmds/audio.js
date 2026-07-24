@@ -15,12 +15,14 @@ module.exports = {
                 countDown: 5,
                 role: 0,
                 description: {
+                        ar: "تحميل أي أغنية مباشرة من اليوتيوب بكل حب ورومانسية ✨🩵",
                         en: "Download any song directly from YouTube",
                         bn: "যেকোনো গান সরাসরি ডাউনলোড করুন",
                         vi: "Tải bất kỳ bài hát nào trực tiếp từ YouTube"
                 },
                 category: "music",
                 guide: {
+                        ar: '   {pn} <اسم الأغنية>\n   مثال: {pn} stay justin bieber 🥺🍓',
                         en: '   {pn} <song name>\n   Example: {pn} stay justin bieber',
                         bn: '   {pn} <গানের নাম>\n   উদাহরণ: {pn} tui chinli na amay',
                         vi: '   {pn} <tên bài hát>\n   Ví dụ: {pn} see you again'
@@ -28,19 +30,28 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        error: "❌ يا حياتي، صرا مشكل: تواصل مع MahMUD يعاونك %1 🥺💔",
+                        noResult: "⭕ | معليش يا عمري، ما لقيت حتى نتيجة لـ \"%1\" 🥺",
+                        noInput: "• يا روحي، عطينا اسم الأغنية باش نقدر نحملها لعيونك 🥺🍓",
+                        success: "✅ | تفضل يا عيوني هاذي هي الأغنية تاعك: %1 ✨🩵"
+                },
                 bn: {
                         error: "❌ An error occurred: contact MahMUD to help %1",
                         noResult: "⭕ | দুঃখিত বেবি, \"%1\" এর জন্য কিছু খুঁজে পাইনি।",
+                        noInput: "• Baby, please provide a song name.",
                         success: "✅ | এই নাও তোমার গান: %1"
                 },
                 en: {
                         error: "❌ An error occurred: contact MahMUD to help %1",
                         noResult: "⭕ | Sorry baby, I couldn't find anything for \"%1\"",
+                        noInput: "• Baby, please provide a song name.",
                         success: "✅ | Here is your song: %1"
                 },
                 vi: {
                         error: "❌ Đã xảy ra lỗi: liên hệ MahMUD để được hỗ trợ %1",
                         noResult: "⭕ | Xin lỗi bé, không tìm thấy kết quả cho \"%1\"",
+                        noInput: "• Baby, please provide a song name.",
                         success: "✅ | Đây là bài hát của bạn: %1"
                 }
         },
@@ -54,7 +65,7 @@ module.exports = {
                 const { threadID, messageID } = event;
                 const input = args.join(" ");
 
-                if (!input) return api.sendMessage("• Baby, please provide a song name.", threadID, messageID);
+                if (!input) return api.sendMessage(getLang("noInput"), threadID, messageID);
 
                 try {
                         const apiUrl = await baseApiUrl();
