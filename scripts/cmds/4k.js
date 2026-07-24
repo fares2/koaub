@@ -14,12 +14,14 @@ module.exports = {
                 countDown: 10,
                 role: 0,
                 description: {
+                        ar: "تحسين أو استعادة جودة الصور إلى 4K باستخدام الذكاء الاصطناعي",
                         bn: "AI এর মাধ্যমে ছবির কোয়ালিটি 4K বা HD করুন",
                         en: "Enhance or restore image quality to 4K using AI",
                         vi: "Nâng cao chất lượng hình ảnh lên 4K bằng AI"
                 },
                 category: "tools",
                 guide: {
+                        ar: '   {pn} [رابط]: تحسين الصورة عبر الرابط\n   أو قم بالرد على الصورة باستخدام الأمر {pn}',
                         bn: '   {pn} [url]: ছবির লিংকের মাধ্যমে HD করুন\n   অথবা ছবির রিপ্লাইয়ে {pn} লিখুন',
                         en: '   {pn} [url]: Upscale image via URL\n   Or reply to an image with {pn}',
                         vi: '   {pn} [url]: Nâng cấp ảnh qua URL\n   Hoặc phản hồi ảnh bằng {pn}'
@@ -27,6 +29,12 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noImage: "• يرجى الرد على صورة أو إرسال رابط الصورة لاستخدام الأمر! 😘",
+                        wait: "جاري تحميل صورة 4K... انتظر يا يعمري 😘",
+                        success: "✅ | تفضل صورة 4K الخاصة بك يا عمري",
+                        error: "× حدث خطأ: %1. يرجى التواصل مع MahMUD للمساعدة."
+                },
                 bn: {
                         noImage: "• বেবি, একটি ছবিতে রিপ্লাই দাও অথবা ছবির লিংক দাও! 😘",
                         wait: "𝐋𝐨𝐚𝐝𝐢𝐧𝐠 𝟒𝐤 𝐢𝐦𝐚𝐠𝐞...𝐰𝐚𝐢𝐭 𝐛𝐚𝐛𝐲 😘",
@@ -72,7 +80,7 @@ module.exports = {
                         const res = await axios.get(apiUrl, { responseType: "stream" });
 
                         if (waitMsg?.messageID) api.unsendMessage(waitMsg.messageID);
-                        api.setMessageReaction("🪽", event.messageID, () => {}, true);
+                        api.setMessageReaction("🍓", event.messageID, () => {}, true);
 
                         return api.sendMessage({
                                 body: getLang("success"),
