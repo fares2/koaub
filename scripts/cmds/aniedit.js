@@ -16,12 +16,14 @@ module.exports = {
                 countDown: 10,
                 role: 0,
                 description: {
+                        ar: "ابحث عن واقوى فيديوهات تعديل الأنمي وحملها بكل حب ✨🩵",
                         bn: "যেকোনো এনিমে এডিট ভিডিও সার্চ করে ডাউনলোড করুন",
                         en: "Search and download any anime edit video",
                         vi: "Tìm kiếm và tải xuống bất kỳ video chỉnh sửa anime nào"
                 },
                 category: "anime",
                 guide: {
+                        ar: '   {pn} <الاسم>: (مثال: {pn} Goku Ultra) 🥺🍓',
                         bn: '   {pn} <নাম>: (যেমন: {pn} Goku Ultra)',
                         en: '   {pn} <keyword>: (Ex: {pn} Goku Ultra)',
                         vi: '   {pn} <từ khóa>: (VD: {pn} Goku Ultra)'
@@ -29,6 +31,12 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noInput: "× يا عمري، عن أي فيديو تعديل أنمي تبحثين؟ أكتبي اسم الشخصية أو الأنمي 🥺🍓",
+                        tooLarge: "× يا روحي، حجم الفيديو أكبر من 25 ميجابايت ولا يمكن إرساله! 🥺💔",
+                        success: "• 𝐇𝐄𝐑𝐄'𝐒 𝐘𝐎𝐔𝐑 𝐀𝐍𝐈𝐌𝐄 𝐄𝐃𝐈𝐓𝐙 𝐕𝐈𝐃𝐄𝐎 يا عيوني ✨\n• 𝐒𝐞𝐚𝐫𝐜𝐡: %1",
+                        error: "× يا حياتي، حدث خطأ: %1. تواصل مع MahMUD للمساعدة 🥺💔"
+                },
                 bn: {
                         noInput: "× বেবি, কোন এনিমে এডিট ভিডিওটি খুঁজছো? নাম বলো",
                         tooLarge: "× ভিডিওটি অনেক বড় (২৫ মেগাবাইটের বেশি)!",
