@@ -14,12 +14,14 @@ module.exports = {
                 countDown: 5,
                 role: 0,
                 description: {
+                        ar: "احصل على صور أنمي رائعة لمختلف الشخصيات بكل حب ورومانسية ✨🩵",
                         bn: "বিভিন্ন ক্যাটাগরির এনিমে ছবি পান",
                         en: "Get anime pictures from various categories",
                         vi: "Lấy hình ảnh anime từ các danh mục khác nhau"
                 },
                 category: "anime",
                 guide: {
+                        ar: '   {pn} <التصنيف>: (مثال: {pn} gojo) 🥺🍓',
                         bn: '   {pn} <category>: (যেমন: {pn} gojo)',
                         en: '   {pn} <category>: (Ex: {pn} gojo)',
                         vi: '   {pn} <category>: (VD: {pn} gojo)'
@@ -27,6 +29,12 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        noCategory: "× يا عمري، يرجى اختيار تصنيف من التصنيفات التالية:\n• %1 🥺🍓",
+                        invalid: "× يا روحي، التصنيف غير صحيح! اختر واحداً من هذه:\n%1 🥺💔",
+                        success: "تفضل صورة %1 الخاصة بك يا عيوني <😘✨",
+                        error: "× يا حياتي، حدث خطأ: %1. تواصل مع MahMUD للمساعدة 🥺💔"
+                },
                 bn: {
                         noCategory: "× বেবি, একটি ক্যাটাগরি বেছে নাও:\n• %1",
                         invalid: "× ভুল ক্যাটাগরি! এগুলো থেকে একটি বেছে নাও:\n%1",
