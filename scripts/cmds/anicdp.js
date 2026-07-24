@@ -14,12 +14,14 @@ module.exports = {
                 countDown: 10,
                 role: 0,
                 description: {
+                        ar: "احصل على صور بروفایل كوبل أنمي عشوائية ومميزة بكل حب ✨🩵",
                         bn: "র‍্যান্ডম এনিমে কাপল প্রোফাইল পিকচার পান",
                         en: "Get random anime couple profile pictures",
                         vi: "Lấy ảnh đại diện cặp đôi anime ngẫu nhiên"
                 },
                 category: "media",
                 guide: {
+                        ar: '   {pn}: استخدم الأمر للحصول على صور كوبل أنمي لعيونك 🥺🍓',
                         bn: '   {pn}: র‍্যান্ডম এনিমে সিডিপি পেতে ব্যবহার করুন',
                         en: '   {pn}: Use to get random anime cdp',
                         vi: '   {pn}: Sử dụng để lấy cdp anime ngẫu nhiên'
@@ -27,6 +29,12 @@ module.exports = {
         },
 
         langs: {
+                ar: {
+                        wait: "⌛ | يا عمري، أبحث لك عن صور كوبل أنمي مميزة...!! 🥺🩵",
+                        noResult: "× يا روحي، لم يتم العثور على أي صور! 🥺💔",
+                        success: "🎀 | 𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐫𝐚𝐧𝐝𝐨𝐦 𝐚𝐧𝐢𝐦𝐞 𝐜𝐝𝐩 𝐛𝐚𝐛𝐲 يا عيوني ✨",
+                        error: "× يا حياتي، حدث خطأ: %1. تواصل مع MahMUD للمساعدة 🥺💔"
+                },
                 bn: {
                         wait: "⌛ | বেবি, তোমার জন্য এনিমে সিডিপি খুঁজছি...!!",
                         noResult: "× কোনো ছবি খুঁজে পাওয়া যায়নি!",
