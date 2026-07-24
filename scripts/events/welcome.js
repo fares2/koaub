@@ -42,10 +42,10 @@ module.exports = {
             try {
                 const addedParticipants = logMessageData.addedParticipants;
                 
-                const assetsPath = join(__dirname, "..", "assets", "welcome");
-                const fontsPath = join(__dirname, "..", "assets", "fonts", "Poppins-Bold.ttf");
-                const framePath = join(__dirname, "..", "assets", "frame.png");
-                const tmpPath = join(__dirname, "..", "tmp");
+                const assetsPath = join(__dirname, "assets", "welcome");
+const fontsPath = join(__dirname, "assets", "fonts", "Poppins-Bold.ttf");
+const framePath = join(__dirname, "assets", "frame.png");
+const tmpPath = join(__dirname, "tmp");
 
                 if (!fs.existsSync(tmpPath)) {
                     fs.mkdirSync(tmpPath, { recursive: true });
