@@ -83,6 +83,7 @@ const tmpPath = join(__dirname, "tmp");
                     if (fs.existsSync(assetsPath)) {
                         const bgFiles = fs.readdirSync(assetsPath)
                             .filter(file => /\.(png|jpg|jpeg|webp)$/i.test(file));
+                        console.log("Backgrounds:", bgFiles);
                         
                         if (bgFiles.length > 0) {
                             const randomBg = bgFiles[Math.floor(Math.random() * bgFiles.length)];
