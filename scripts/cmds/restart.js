@@ -2,19 +2,21 @@ const fs = require("fs-extra");
 
 module.exports = {
 	config: {
-		name: "restart",
+		name: "اعادة_تشغيل",
 		version: "1.1",
 		author: "NTKhang",
 		countDown: 5,
 		role: 2,
 		description: {
 			vi: "Khởi động lại bot",
-			en: "Restart bot"
+			en: "Restart bot",
+			ar: "اعادة تشغيل بوت "
 		},
 		category: "Owner",
 		guide: {
 			vi: "   {pn}: Khởi động lại bot",
-			en: "   {pn}: Restart bot"
+			en: "   {pn}: Restart bot",
+			ar: "   {pn}:  باش تعاود تشغل بوت من جديد"
 		}
 	},
 
@@ -24,6 +26,9 @@ module.exports = {
 		},
 		en: {
 			restartting: "🔄 | Restarting bot..."
+		},
+		ar: {
+			restartting: "🔄 | جاري اعادة تشغيل بوت ..."
 		}
 	},
 
@@ -31,7 +36,7 @@ module.exports = {
 		const pathFile = `${__dirname}/tmp/restart.txt`;
 		if (fs.existsSync(pathFile)) {
 			const [tid, time] = fs.readFileSync(pathFile, "utf-8").split(" ");
-			api.sendMessage(`✅ | Bot restarted\n⏰ | Time: ${(Date.now() - time) / 1000}s`, tid);
+			api.sendMessage(`✅ | تم اعادة تشغيل بوت \n⏰ | الوقت المستغرق: ${(Date.now() - time) / 1000} ثانية`, tid);
 			fs.unlinkSync(pathFile);
 		}
 	},
