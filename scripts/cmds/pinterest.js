@@ -9,7 +9,7 @@ const mahmud = async () => {
 
 module.exports = {
         config: {
-                name: "pin",
+                name: "بنترست",
                 aliases: ["pinterest", "pic"],
                 version: "1.7",
                 author: "MahMUD",
@@ -66,7 +66,7 @@ module.exports = {
                 const queryAndLength = args.join(" ").split("-");
                 const keySearch = queryAndLength[0]?.trim();
                 const count = queryAndLength[1]?.trim();
-                const numberSearch = count ? Math.min(parseInt(count), 20) : 6;
+                const numberSearch = count ? Math.min(parseInt(count), 20) : 10;
 
                 if (!keySearch) return message.reply(getLang("noInput"));
 
