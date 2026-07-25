@@ -1,66 +1,69 @@
 const createFuncMessage = global.utils.message;
 const handlerCheckDB = require("./handlerCheckData.js");
 
-const request = require("request")
-const axios = require("axios")
-const fs = require("fs-extra")
+// استدعاء ملف الرسائل لتفادي خطأ ReferenceError
+const messages = require("./messages.js"); 
 
+const request = require("request");
+const axios = require("axios");
+const fs = require("fs-extra");
 
 module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData) => {
 	const handlerEvents = require(process.env.NODE_ENV == 'development' ? "./handlerEvents.dev.js" : "./handlerEvents.js")(api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData);
 
 	return async function (event) {
 		const message = createFuncMessage(api, event);
+
 		message.success = (text) =>
-	message.reply(text || messages.random(messages.success));
+			message.reply(text || messages.random(messages.success));
 
-message.error = (text) =>
-	message.reply(text || messages.random(messages.error));
+		message.error = (text) =>
+			message.reply(text || messages.random(messages.error));
 
-message.loading = (text) =>
-	message.reply(text || messages.random(messages.loading));
+		message.loading = (text) =>
+			message.reply(text || messages.random(messages.loading));
 
-message.noPermission = (text) =>
-	message.reply(text || messages.random(messages.noPermission));
+		message.noPermission = (text) =>
+			message.reply(text || messages.random(messages.noPermission));
 
-message.botNoPermission = (text) =>
-	message.reply(text || messages.random(messages.botNoPermission));
+		message.botNoPermission = (text) =>
+			message.reply(text || messages.random(messages.botNoPermission));
 
-message.done = (text) =>
-	message.reply(text || messages.random(messages.done));
+		message.done = (text) =>
+			message.reply(text || messages.random(messages.done));
 
-message.wait = (text) =>
-	message.reply(text || messages.random(messages.wait));
+		message.wait = (text) =>
+			message.reply(text || messages.random(messages.wait));
 
-message.welcome = (text) =>
-	message.reply(text || messages.random(messages.welcome));
+		message.welcome = (text) =>
+			message.reply(text || messages.random(messages.welcome));
 
-message.goodbye = (text) =>
-	message.reply(text || messages.random(messages.goodbye));
+		message.goodbye = (text) =>
+			message.reply(text || messages.random(messages.goodbye));
 
-message.ai = (text) =>
-	message.reply(text || messages.random(messages.ai));
+		message.ai = (text) =>
+			message.reply(text || messages.random(messages.ai));
 
-message.download = (text) =>
-	message.reply(text || messages.random(messages.download));
+		message.download = (text) =>
+			message.reply(text || messages.random(messages.download));
 
-message.upload = (text) =>
-	message.reply(text || messages.random(messages.upload));
+		message.upload = (text) =>
+			message.reply(text || messages.random(messages.upload));
 
-message.onlyOwner = (text) =>
-	message.reply(text || messages.random(messages.onlyOwner));
+		message.onlyOwner = (text) =>
+			message.reply(text || messages.random(messages.onlyOwner));
 
-message.onlyAdmin = (text) =>
-	message.reply(text || messages.random(messages.onlyAdmin));
+		message.onlyAdmin = (text) =>
+			message.reply(text || messages.random(messages.onlyAdmin));
 
-message.onlyGroup = (text) =>
-	message.reply(text || messages.random(messages.onlyGroup));
+		message.onlyGroup = (text) =>
+			message.reply(text || messages.random(messages.onlyGroup));
 
-message.cooldown = (text) =>
-	message.reply(text || messages.random(messages.cooldown));
+		message.cooldown = (text) =>
+			message.reply(text || messages.random(messages.cooldown));
 
-message.notFound = (text) =>
-	message.reply(text || messages.random(messages.notFound));
+		message.notFound = (text) =>
+			message.reply(text || messages.random(messages.notFound));
 
 		await handlerCheckDB(usersData, threadsData, event);
 		const handlerChat = await handlerEvents(event, message);
@@ -76,45 +79,39 @@ message.notFound = (text) =>
 				onChat();
 				onStart();
 				onReply();
-        if(event.type == "message_unsend"){
-          
-          let resend = await threadsData.get(event.threadID, "settings.reSend");
-		if (resend == true && event.senderID 
-!== api.getCurrentUserID()){
-      let umid = global.reSend[event.threadID].findIndex(e => e.messageID === event.messageID)
-      
-      if(umid>(-1)){
-let nname = await usersData.getName(event.senderID)
-        let attch = []
-if(global.reSend[event.threadID][umid].attachments.length>0){
-  let cn = 0
-  for(var abc of global.reSend[event.threadID][umid].attachments){
-   if(abc.type == "audio"){
-    
-    cn += 1;
+				if (event.type == "message_unsend") {
+					let resend = await threadsData.get(event.threadID, "settings.reSend");
+					if (resend == true && event.senderID !== api.getCurrentUserID()) {
+						let umid = global.reSend[event.threadID].findIndex(e => e.messageID === event.messageID);
 
-   let pts = `scripts/cmds/tmp/${cn}.mp3`
-					let res2 = (await axios.get(abc.url, {
-						responseType: "arraybuffer"
-					})).data;
-			fs.writeFileSync(pts, Buffer.from(res2, "utf-8"))
-    
-  attch.push(fs.createReadStream(pts))} else{
-     attch.push(await global.utils.getStreamFromURL(abc.url))
-  }
-  }
-}
-        
-  api.sendMessage({body: nname + " removed:\n\n" + global.reSend[event.threadID][umid].body,
-mentions:[{id:event.senderID, tag:nname}],
-    attachment:attch
-                  }, event.threadID)
-                   
+						if (umid > (-1)) {
+							let nname = await usersData.getName(event.senderID);
+							let attch = [];
+							if (global.reSend[event.threadID][umid].attachments.length > 0) {
+								let cn = 0;
+								for (var abc of global.reSend[event.threadID][umid].attachments) {
+									if (abc.type == "audio") {
+										cn += 1;
+										let pts = `scripts/cmds/tmp/${cn}.mp3`;
+										let res2 = (await axios.get(abc.url, {
+											responseType: "arraybuffer"
+										})).data;
+										fs.writeFileSync(pts, Buffer.from(res2, "utf-8"));
+										attch.push(fs.createReadStream(pts));
+									} else {
+										attch.push(await global.utils.getStreamFromURL(abc.url));
+									}
+								}
+							}
 
-  
-      }
-    }
-        }
+							api.sendMessage({
+								body: nname + " removed:\n\n" + global.reSend[event.threadID][umid].body,
+								mentions: [{ id: event.senderID, tag: nname }],
+								attachment: attch
+							}, event.threadID);
+						}
+					}
+				}
 				break;
 			case "event":
 				handlerEvent();
@@ -122,23 +119,24 @@ mentions:[{id:event.senderID, tag:nname}],
 				break;
 			case "message_reaction":
 				onReaction();
-        if(event.reaction == "❗"){
-  if(event.userID == "61589591233031"){
-api.removeUserFromGroup(event.senderID, event.threadID, (err) => {
-                if (err) return console.log(err);
-              });
-
-}else{
-    message.send(":)")
-  }
-  }
-        if(event.reaction == "😡"){
-  if(event.senderID == api.getCurrentUserID()){if(event.userID == "61589591233031"){
-    message.unsend(event.messageID)
-}else{
-    message.send(":)")
-  }}
-        }
+				if (event.reaction == "❗") {
+					if (event.userID == "61589591233031") {
+						api.removeUserFromGroup(event.senderID, event.threadID, (err) => {
+							if (err) return console.log(err);
+						});
+					} else {
+						message.send(":)");
+					}
+				}
+				if (event.reaction == "😡") {
+					if (event.senderID == api.getCurrentUserID()) {
+						if (event.userID == "61589591233031") {
+							message.unsend(event.messageID);
+						} else {
+							message.send(":)");
+						}
+					}
+				}
 				break;
 			case "typ":
 				typ();
