@@ -6,7 +6,7 @@ const axios = require('axios');
 module.exports = {
     config: {
         name: "welcome",
-        version: "3.4.0",
+        version: "3.4.1",
         author: "Fares",
         category: "events",
         description: "نظام ترحيب احترافي متوافق مع Hinata/GoatBot مع دعم الكانفاس واللغات وتغيير اللقب"
@@ -37,15 +37,25 @@ module.exports = {
             const { threadID, logMessageData } = event;
             const botID = api.getCurrentUserID();
 
-            if (logMessageData.addedParticipants.some(i => i.userFbId == botID)) return;
+            // تعديل شرط إضافة البوت لتغيير لقبه وإرسال رسالة الشكر
+            if (logMessageData.addedParticipants.some(i => i.userFbId == botID)) {
+                try {
+                    await api.changeNickname("Yuki [🍓]", threadID, botID);
+                } catch (e) {
+                    console.log("Hinata v3 - Bot Nickname Error:", e.message);
+                }
+
+                api.sendMessage("شكراً لإضافتي إلى المجموعة 🌸\nتم ضبط لقبي تلقائياً بنجاح.", threadID);
+                return;
+            }
 
             try {
                 const addedParticipants = logMessageData.addedParticipants;
                 
                 const assetsPath = join(__dirname, "assets", "welcome");
-const fontsPath = join(__dirname, "assets", "fonts", "Poppins-Bold.ttf");
-const framePath = join(__dirname, "assets", "frame.png");
-const tmpPath = join(__dirname, "tmp");
+                const fontsPath = join(__dirname, "assets", "fonts", "Poppins-Bold.ttf");
+                const framePath = join(__dirname, "assets", "frame.png");
+                const tmpPath = join(__dirname, "tmp");
 
                 if (!fs.existsSync(tmpPath)) {
                     fs.mkdirSync(tmpPath, { recursive: true });
@@ -83,7 +93,6 @@ const tmpPath = join(__dirname, "tmp");
                     if (fs.existsSync(assetsPath)) {
                         const bgFiles = fs.readdirSync(assetsPath)
                             .filter(file => /\.(png|jpg|jpeg|webp)$/i.test(file));
-                        console.log("Backgrounds:", bgFiles);
                         
                         if (bgFiles.length > 0) {
                             const randomBg = bgFiles[Math.floor(Math.random() * bgFiles.length)];
@@ -173,7 +182,7 @@ const tmpPath = join(__dirname, "tmp");
                     await new Promise(resolve => setTimeout(resolve, 1200));
 
                     try {
-                        api.changeNickname(`[🍓] ${name}`, threadID, uid);
+                        api.changeNickname(`[💋] ${name}`, threadID, uid);
                     } catch (nickErr) {
                         console.log("Hinata v3 - Nickname Error:", nickErr.message);
                     }
