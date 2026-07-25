@@ -30,4 +30,3 @@ jobs:
 
     - name: Start Bot
       run: npm start
-name
