@@ -7,7 +7,7 @@ const mahmud = async () => {
 
 module.exports = {
         config: {
-                name: "age",
+                name: "العمر",
                 aliases: ["বয়স"],
                 version: "1.7",
                 author: "MahMUD",
