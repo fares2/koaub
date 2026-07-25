@@ -9,7 +9,7 @@ const baseApiUrl = async () => {
 
 module.exports = {
         config: {
-                name: "صوت",
+                name: "اغنية",
                 version: "1.7",
                 author: "MahMUD",
                 countDown: 5,
@@ -31,9 +31,9 @@ module.exports = {
 
         langs: {
                 ar: {
-                        error: "❌ يا حياتي، صرا مشكل: تواصل مع MahMUD يعاونك %1 🥺💔",
+                        error:  "حدث خطأ تواصل معا المطور Fares kouachi رقم وانساب 0793229194 اخبره انه حدث خطأ في هذا الامر 🍓",
                         noResult: "⭕ | معليش يا عمري، ما لقيت حتى نتيجة لـ \"%1\" 🥺",
-                        noInput: "• يا روحي، عطينا اسم الأغنية باش نقدر نحملها لعيونك 🥺🍓",
+                        noInput: "• يا روحي، عطينا اسم الأغنية باش نقدر نطلعها في فوكال وتسمعها وتعطيني رايك  🥺🍓",
                         success: "✅ | تفضل يا عيوني هاذي هي الأغنية تاعك: %1 ✨🩵"
                 },
                 bn: {
@@ -117,7 +117,7 @@ async function handleDownload(api, threadID, messageID, videoID, apiUrl, title, 
                                 attachment: fs.createReadStream(filePath)
                         }, threadID, (err) => {
                                 if (err) api.sendMessage(getLang("error", "File too large!"), threadID, messageID);
-                                api.setMessageReaction("🪽", messageID, () => { }, true);
+                                api.setMessageReaction("💟", messageID, () => { }, true);
                                 if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
                         }, messageID);
                 });
