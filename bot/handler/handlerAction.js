@@ -4,7 +4,6 @@ const handlerCheckDB = require("./handlerCheckData.js");
 const request = require("request")
 const axios = require("axios")
 const fs = require("fs-extra")
-const messages = require("../../scripts/utils/messages");
 
 
 module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData) => {
